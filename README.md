@@ -6,7 +6,7 @@
 
 URL base: ```http://localhost:3333```
 
-### User
+### 👤 User
 
 POST ```/users```
 
@@ -21,7 +21,7 @@ A rota deve receber ```name``` e ```username``` no corpo da requisição para cr
 
 ---
 
-### TODOs
+### 📝 TODOs
 
 GET ```/todos```
 
