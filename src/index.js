@@ -20,7 +20,7 @@ function checksExistsUserAccount(request, response, next) {
   }
 
   request.user = user;
-  next();
+  return next();
 }
 
 function checksExistsUserTodo(request, response, next) {
@@ -34,7 +34,7 @@ function checksExistsUserTodo(request, response, next) {
   }
 
   request.todo = todo;
-  next();
+  return next();
 }
 
 app.post("/users", (request, response) => {
@@ -43,7 +43,7 @@ app.post("/users", (request, response) => {
   const userAlreadyExists = users.some((user) => user.username === username);
 
   if (userAlreadyExists) {
-    return response.status(400).json({ error: "User already exists." });
+    return response.status(400).json({ error: "Username already exists." });
   }
 
   const user = {
@@ -97,7 +97,7 @@ app.put(
       todo.deadline = new Date(deadline);
     }
 
-    return response.status(201).json(todo);
+    return response.json(todo);
   }
 );
 
@@ -113,7 +113,7 @@ app.patch(
 
     todo.done = true;
 
-    return response.status(201).json(todo);
+    return response.json(todo);
   }
 );
 
@@ -125,8 +125,8 @@ app.delete(
     const { id } = request.params;
     const { user } = request;
 
-    const index = user.todos.findIndex((item) => item.id === id);
-    user.todos.splice(index, 1);
+    const todoIndex = user.todos.findIndex((item) => item.id === id);
+    user.todos.splice(todoIndex, 1);
 
     return response.status(204).send();
   }
